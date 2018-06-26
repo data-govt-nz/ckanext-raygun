@@ -1,33 +1,3 @@
-.. You should enable this project on travis-ci.org and coveralls.io to make
-   these badges work. The necessary Travis and Coverage config files have been
-   generated for you.
-
-.. image:: https://travis-ci.org/mediasuite/ckanext-raygun.svg?branch=master
-    :target: https://travis-ci.org/mediasuite/ckanext-raygun
-
-.. image:: https://coveralls.io/repos/mediasuite/ckanext-raygun/badge.svg
-  :target: https://coveralls.io/r/mediasuite/ckanext-raygun
-
-.. image:: https://pypip.in/download/ckanext-raygun/badge.svg
-    :target: https://pypi.python.org/pypi//ckanext-raygun/
-    :alt: Downloads
-
-.. image:: https://pypip.in/version/ckanext-raygun/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-raygun/
-    :alt: Latest Version
-
-.. image:: https://pypip.in/py_versions/ckanext-raygun/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-raygun/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/status/ckanext-raygun/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-raygun/
-    :alt: Development Status
-
-.. image:: https://pypip.in/license/ckanext-raygun/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-raygun/
-    :alt: License
-
 =============
 ckanext-raygun
 =============
@@ -70,9 +40,30 @@ To install ckanext-raygun:
 ---------------
 Config Settings
 ---------------
+Configuration of this plugin happens through standard python logging config and via a wsgi specific middleware that picks up the `ckanext.raygun_api_key` config field::
 
     # The api key for accessing raygun
-    ckanext.raygun.api_key = your_secret_key
+    ckanext.raygun.api_key = <your_api_key_here>
+
+    # To support ad-hoc paster commands reporting to raygun add the following handler to your log config
+
+    # 1. extend your handlers definition
+    [handlers]
+    keys = console, raygun
+
+    [logger_root]
+    level = WARNING
+    handlers = console, raygun
+
+
+    # 2. configure a handler for raygun
+    [handler_raygun]
+    class = raygun4py.raygunprovider.RaygunHandler
+    args = ("<your_api_key_here>",)
+    level = NOTSET
+    formatter = generic
+
+
 
 
 ------------------------
