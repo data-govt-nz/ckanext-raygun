@@ -14,6 +14,8 @@ class RaygunPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IMiddleware, inherit=True)
     plugins.implements(plugins.IConfigurable, inherit=True)
     plugins.implements(plugins.IConfigurer, inherit=True)
+    plugins.implements(plugins.ITemplateHelpers)
+    api_key = ''
 
     def make_error_log_middleware(self, app, config):
         api_key = config.get('raygun.api_key', None)
@@ -31,7 +33,7 @@ class RaygunPlugin(plugins.SingletonPlugin):
             log.warning('API_KEY is not defined in error logging middleware')
             return
 
-        self.raygun_api_key = config['raygun.api_key']
+        self.api_key = config['raygun.api_key']
 
     def update_config(self, config):
         '''Change the CKAN (Pylons) environment configuration.
@@ -39,3 +41,14 @@ class RaygunPlugin(plugins.SingletonPlugin):
         '''
         toolkit.add_template_directory(config, 'templates')
 
+    def get_helpers(self):
+        '''Return the CKAN 2.0 template helper functions this plugin provides.
+
+        See ITemplateHelpers.
+
+        '''
+        return {'get_api_key': self.get_api_key}
+
+    def get_api_key(self):
+        return self.api_key
+    
