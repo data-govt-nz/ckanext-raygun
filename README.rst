@@ -1,6 +1,6 @@
-=============
+==============
 ckanext-raygun
-=============
+==============
 
 A plugin for capturing exceptions using the [raygun](https://raygun.com) service.
 
@@ -40,10 +40,12 @@ To install ckanext-raygun:
 ---------------
 Config Settings
 ---------------
-Configuration of this plugin happens through standard python logging config and via a wsgi specific middleware that picks up the `ckanext.raygun_api_key` config field::
+Configuration of this plugin happens through standard python logging config and via a wsgi specific middleware that picks up the `ckanext.raygun.api_key` config field::
 
     # The api key for accessing raygun
     ckanext.raygun.api_key = <your_api_key_here>
+    # Optionally, set RaygunSender config (see raygun4py README for more info)
+    ckanext.raygun.sender_config = {}
 
     # To support ad-hoc paster commands reporting to raygun add the following handler to your log config
 
@@ -55,11 +57,10 @@ Configuration of this plugin happens through standard python logging config and 
     level = WARNING
     handlers = console, raygun
 
-
     # 2. configure a handler for raygun
     [handler_raygun]
-    class = raygun4py.raygunprovider.RaygunHandler
-    args = ("<your_api_key_here>",)
+    class = ckanext.raygun.plugin.RaygunHandler
+    args = ('<your_api_key_here>', <raygun_sender_config>,)
     level = NOTSET
     formatter = generic
 
