@@ -1,1 +1,1 @@
-raygun4py>=4.0,<=5.0
+git+https://github.com/mediasuitenz/raygun4py@add_config_to_middleware#egg=raygun4py
