@@ -3,6 +3,7 @@ import logging
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from raygun4py.middleware import wsgi
+from raygun4py.raygunprovider import RaygunSender
 
 log = logging.getLogger(__name__)
 
@@ -51,4 +52,22 @@ class RaygunPlugin(plugins.SingletonPlugin):
 
     def get_api_key(self):
         return self.api_key
-    
+
+
+# Taken from https://github.com/MindscapeHQ/raygun4py/blob/f65727a8cc8c6e4b089a68efcd906d6dd7080568/python2/raygun4py/raygunprovider.py#L178
+# and modified to accept arguments to RaygunSender
+class RaygunHandler(logging.Handler):
+    def __init__(self, api_key, config, version=None):
+        logging.Handler.__init__(self)
+        print('Raygun logging handler initialised')
+        print('API key: {}'.format(api_key))
+        print('config dict: {}'.format(config))
+        self.sender = RaygunSender(api_key, config=config)
+        self.version = version
+
+    def emit(self, record):
+        userCustomData = {
+            "Logger Message": record.msg
+        }
+        self.sender.send_exception(userCustomData=userCustomData)
+
