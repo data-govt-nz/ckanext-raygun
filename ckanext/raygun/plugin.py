@@ -6,7 +6,7 @@ from raygun4py.middleware import wsgi
 from raygun4py.raygunprovider import RaygunSender
 
 log = logging.getLogger(__name__)
-no_key_warning = 'ckanext.raygun.api_key is not defined in {} {}'
+no_key_warning = 'ckanext.raygun.api_key is not defined in config: {} {}'
 
 api_key_name = 'ckanext.raygun.api_key'
 sender_config_name = 'ckanext.raygun.sender_config'
@@ -21,10 +21,13 @@ class RaygunPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.ITemplateHelpers)
     api_key = ''
     sender_config = None
+    has_warned = False
 
     def _set_config(self, config, method_name):
         if api_key_name not in config:
-            log.warning(no_key_warning.format('RaygunPlugin', method_name))
+            if not self.has_warned:
+                log.warning(no_key_warning.format('RaygunPlugin', method_name))
+                self.has_warned = True
             return
 
         self.api_key = config.get(api_key_name)
