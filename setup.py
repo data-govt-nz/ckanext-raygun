@@ -15,17 +15,17 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='0.0.1',
+    version='0.1.0',
 
     description='''Capture errors using raygun!''',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/mediasuite/ckanext-raygun',
+    url='https://github.com/data-govt-nz/ckanext-raygun',
 
     # Author details
     author='''Media Suite''',
-    author_email='''ersin@mediasuite.co.nz''',
+    author_email='''mark@mediasuite.co.nz''',
 
     # Choose your license
     license='AGPL',

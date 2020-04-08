@@ -1,2 +1,1 @@
-git+https://github.com/mediasuitenz/raygun4py#egg=raygun4py
-
+git+https://github.com/mediasuitenz/raygun4py@add_config_to_middleware#egg=raygun4py
