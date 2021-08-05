@@ -57,7 +57,7 @@ class RaygunPlugin(plugins.SingletonPlugin):
         See IConfigurer.
         '''
         self._set_config(config, 'update_config')
-        toolkit.add_template_directory(config, 'templates')
+        toolkit.add_template_directory(config, '../templates')
 
     def get_helpers(self):
         '''Return the CKAN 2.0 template helper functions this plugin provides.
