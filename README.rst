@@ -4,11 +4,18 @@ ckanext-raygun
 
 A plugin for capturing exceptions using the [raygun](https://raygun.com) service.
 
+------------------
+CKAN < 2.9 support
+------------------
+As of `1.0.0` this extention has been made to work with CKAN 2.9. While attempts have been made to maintain compatibility
+with prior version of CKAN, there may be issues. If any issues are discovered we are happy to accept PRs. Alternatively for
+compatibility <2.9 the `0.1.0` tag can be used
+
 ------------
 Requirements
 ------------
 
-We know this works with CKAN 2.7, if you are installing it in a prior version we would appreciate your contributions in supporting backwards compatibility.
+We know this works with CKAN 2.9, if you are installing it in a prior version we would appreciate your contributions in supporting backwards compatibility.
 
 ------------
 Installation
@@ -92,59 +99,3 @@ To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
 
     nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.raygun --cover-inclusive --cover-erase --cover-tests
-
-
----------------------------------
-Registering ckanext-raygun on PyPI
----------------------------------
-
-ckanext-raygun should be availabe on PyPI as
-https://pypi.python.org/pypi/ckanext-raygun. If that link doesn't work, then
-you can register the project on PyPI for the first time by following these
-steps:
-
-1. Create a source distribution of the project::
-
-     python setup.py sdist
-
-2. Register the project::
-
-     python setup.py register
-
-3. Upload the source distribution to PyPI::
-
-     python setup.py sdist upload
-
-4. Tag the first release of the project on GitHub with the version number from
-   the ``setup.py`` file. For example if the version number in ``setup.py`` is
-   0.0.1 then do::
-
-       git tag 0.0.1
-       git push --tags
-
-
-----------------------------------------
-Releasing a New Version of ckanext-raygun
-----------------------------------------
-
-ckanext-raygun is availabe on PyPI as https://pypi.python.org/pypi/ckanext-raygun.
-To publish a new version to PyPI follow these steps:
-
-1. Update the version number in the ``setup.py`` file.
-   See `PEP 440 <http://legacy.python.org/dev/peps/pep-0440/#public-version-identifiers>`_
-   for how to choose version numbers.
-
-2. Create a source distribution of the new version::
-
-     python setup.py sdist
-
-3. Upload the source distribution to PyPI::
-
-     python setup.py sdist upload
-
-4. Tag the new release of the project on GitHub with the version number from
-   the ``setup.py`` file. For example if the version number in ``setup.py`` is
-   0.0.2 then do::
-
-       git tag 0.0.2
-       git push --tags
